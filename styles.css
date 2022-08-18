@@ -1,0 +1,277 @@
+:root {
+	--c: black;
+	--b: white;
+	--gap-w: min(5vw, 2em);
+	--gap-h: min(5vh, 2em);
+	--bullet-1: '◩';
+	--bullet-2: '⬕';
+	--bullet-3: '⬔';
+	--bullet-4: '◪';
+	--sub-bullet-1: '◰';
+	--sub-bullet-2: '◳';
+	--sub-bullet-3: '◲';
+	--sub-bullet-4: '◱';
+}
+
+*,
+*::before,
+*::after {
+	/* Shoutout to IE6 */
+	box-sizing: border-box;
+}
+
+::selection {
+	color: var(--b);
+	background-color: var(--c);
+}
+
+:focus {
+	outline: 0.125em solid var(--c);
+	outline-offset: 0.125em;
+}
+
+body {
+	margin: var(--gap-h) var(--gap-w);
+	font-size: 1.25em;
+	line-height: 1.5;
+	font-family: monospace;
+	color: var(--c);
+	background-color: var(--b);
+}
+
+@media (min-width: 60em) {
+	body {
+		font-size: 1.5em;
+	}
+}
+
+section> :first-child {
+	margin-top: 0;
+}
+
+section:not(:first-child) {
+	margin-top: 3rem;
+}
+
+blockquote,
+details,
+h2,
+h3,
+hr,
+p,
+ul {
+	margin-top: 1.5rem;
+	margin-bottom: 0;
+}
+
+h1 {
+	margin-top: 0;
+	margin-bottom: 0;
+	display: flex;
+	align-items: center;
+	gap: 0.25em;
+	word-break: break-all;
+}
+
+h1,
+h2 {
+	padding-bottom: 0.5rem;
+	border-bottom: 0.75rem solid var(--c);
+}
+
+h3 time {
+	display: block;
+	font-size: 0.8em;
+	font-weight: normal;
+}
+
+mark {
+	background-color: transparent;
+	outline: 2px dotted;
+	outline-offset: 2px;
+	font-size: 0.8em;
+}
+
+a {
+	color: currentColor;
+}
+
+a[href^="https://"]::after {
+	/* removes underline */
+	display: inline-block;
+	/* makes emoji black */
+	filter: brightness(0);
+	padding-left: 0.3em;
+	position: relative;
+	bottom: 0.3em;
+	font-size: 0.8em;
+}
+
+a[href^="https://"]::after {
+	content: '↗';
+}
+
+a[href^="https://kleinfreund.de/"]::after {
+	content: '';
+}
+
+a[href$=".single.fyi/"]::after {
+	content: '✔';
+}
+
+a[href^="https://mastodon.social/"]::after {
+	content: '🐘';
+}
+
+img {
+	vertical-align: middle;
+}
+
+picture>img {
+	width: 100%;
+	height: auto;
+}
+
+h1 svg {
+	flex-shrink: 0;
+}
+
+hr {
+	border-top: 0.75rem solid var(--c);
+}
+
+ul {
+	padding-left: 2rem;
+}
+
+ul ul {
+	margin-top: 0;
+}
+
+li {
+	padding-inline-start: 1ch;
+}
+
+li:nth-child(4n + 1) {
+	list-style-type: var(--bullet-1);
+}
+
+li:nth-child(4n + 2) {
+	list-style-type: var(--bullet-2);
+}
+
+li:nth-child(4n + 3) {
+	list-style-type: var(--bullet-3);
+}
+
+li:nth-child(4n + 4) {
+	list-style-type: var(--bullet-4);
+}
+
+li li:nth-child(4n + 1) {
+	list-style-type: var(--sub-bullet-1);
+}
+
+li li:nth-child(4n + 2) {
+	list-style-type: var(--sub-bullet-2);
+}
+
+li li:nth-child(4n + 3) {
+	list-style-type: var(--sub-bullet-3);
+}
+
+li li:nth-child(4n + 4) {
+	list-style-type: var(--sub-bullet-4);
+}
+
+.banner {
+	position: relative;
+	margin-bottom: 4em;
+	padding: 1em;
+	border: 10px dashed;
+	text-align: center;
+	font-size: 2em;
+}
+
+.banner::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border: 10px solid;
+}
+
+.page {
+	display: grid;
+	align-items: flex-start;
+	grid-template-areas:
+		"main"
+		"aside"
+		"gallery"
+	;
+	gap: var(--gap-w) calc(2 * var(--gap-h));
+}
+
+.page__main {
+	grid-area: main;
+}
+
+.page__aside {
+	grid-area: aside;
+}
+
+.page__gallery {
+	grid-area: gallery;
+}
+
+.page>* {
+	min-width: 0;
+}
+
+@media (min-width: 60em) and (max-width: 99.998em) {
+	.page {
+		grid-template-columns: 3fr 2fr;
+		grid-template-areas:
+			"main aside"
+			"gallery gallery"
+		;
+	}
+}
+
+@media (min-width: 100em) {
+	.page {
+		grid-template-columns: 3fr 2fr 5fr;
+		grid-template-areas: "main aside gallery";
+	}
+}
+
+.avatar-link {
+	float: right;
+	margin-left: 0.5em;
+	margin-bottom: 0.5em;
+	margin-right: calc(-1 * var(--gap-w));
+}
+
+.avatar {
+	width: 180px;
+	height: auto;
+	filter: grayscale(1);
+	transition: filter 0.2s ease-in;
+}
+
+.avatar:hover {
+	filter: grayscale(0);
+}
+
+.gallery {
+	margin-top: 1.5rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 1fr);
+	gap: 1.5rem;
+}
+
+@media (min-width: 25em) {
+	.gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+	}
+}
